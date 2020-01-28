@@ -32,36 +32,31 @@ float calculateFeetToInches(int feet, int inches) {
 }
 
 /**
- * Function that converts the total inches into meters
- * @param  feet - length in feet
- * @param  inches - length in inches
- * @return inputted length converted into meters
- */
-float calculateToMeters(int feet, int inches) {
-  float meters = (calculateFeetToInches(feet, inches)) * (0.0254);
-  return meters;
-}
-
-/**
  * Function that takes the calculated meters conversion and converts that into
  * centimeters
  * @param  feet - length in feet
  * @param  inches - length in inches
  * @return the length converted to centimeters
  */
-float calculateToCentimeters(int feet, int inches) {
-  float centi = calculateToMeters(feet, inches) * 100;
+float calculateInchesToCentimeters(int feet, int inches) {
+  float centi = calculateFeetToInches(feet, inches) * 2.54;
   return centi;
 }
 
 /**
- * Function that outputs the converted lengths that were calculated
- * @param convMeters - length conversion in meters
- * @param convCm - length converted in centimeters
+ * Function that converts the total inches into meters and cm
+ * @param  feet - length in feet
+ * @param  inches - length in inches
+ * @return inputted length converted into meters and cm
  */
-void consoleOutput(float convMeters, float convCm) {
-  cout << "Conversion to meters: " << convMeters << endl;
-  cout << "Conversion to centimeters: " << convCm << endl;
+void outputToMetersAndCM(int feet, int inches) {
+  float centi = calculateInchesToCentimeters(feet, inches);
+  float meters = 0;
+  while (centi >= 100) {
+    meters += 1;
+    centi -= 100;
+  }
+  cout << "Conversion: " << meters << " meters and " << centi << " cm" << endl;
 }
 
 //main method
@@ -73,7 +68,7 @@ int main(int argc, char **argv) {
   while (input != "exit") {
     //call to the functions above
     userInput(feet, inches);
-    consoleOutput(calculateToMeters(feet, inches), calculateToCentimeters(feet, inches));
+    outputToMetersAndCM(feet,inches);
     cout << "If you would like to exit the program, type 'exit'" << endl;
     cin >> input;
   }
